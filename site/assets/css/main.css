@@ -300,6 +300,7 @@ html:not(.js) .eyebrow__lijn { transform: scaleX(1); }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 50;
+  padding-top: env(safe-area-inset-top);
   background: var(--balk-bg);
   transition: background 400ms ease, border-color 400ms ease,
               transform 450ms var(--vloeiend), backdrop-filter 400ms ease;
@@ -576,20 +577,28 @@ html.js .hero__etiket { opacity: 0; transition: opacity 900ms ease 1100ms; }
 html.klaar .hero__etiket { opacity: 1; }
 
 @media (max-width: 63.9375rem) {
-  .hero { min-height: auto; }
+  .hero {
+    min-height: 100svh;
+  }
   .hero__gloed { display: none; } /* het beeld heeft zijn eigen gloed */
   .hero__medaillon {
-    position: relative;
-    right: auto; top: auto;
-    width: min(64vw, 22rem);
-    margin: 6.5rem auto 0;
+    position: absolute;
+    left: 50%;
+    top: 50svh;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: min(68vw, 22rem);
+    margin: 0;
   }
-  html.js .hero__medaillon { transform: translateY(30px) scale(0.96); }
+  html.js .hero__medaillon { transform: translate(-50%, calc(-50% + 30px)) scale(0.96); }
   html.klaar .hero__medaillon,
-  html:not(.js) .hero__medaillon { transform: none; }
-  .hero__binnen { padding-top: 2.5rem; }
+  html:not(.js) .hero__medaillon { transform: translate(-50%, -50%); }
+  .hero__binnen {
+    position: relative;
+    z-index: 2;
+    padding-top: calc(50svh + 9.5rem);
+  }
   .hero__etiket { position: static; margin-top: 2rem; }
-  .hero { flex-direction: column; align-items: stretch; }
 }
 
 /* --------------------------- Materialenlint ----------------------------- */
