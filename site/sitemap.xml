@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [DOMEIN invullen]: vervang www.moskunst.nl zodra het echte domein bekend is (ook in robots.txt en index.html) -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.moskunst.nl/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/01-moscirkel/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/02-met-verlichting/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/03-ovaal-90x70/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/04-ovaal-acacia/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/05-organische-vorm/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/06-met-logo/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/07-mos-mandala/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/08-botanische-illustraties/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/09-3d-moslandschap/foto-01.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.moskunst.nl/assets/images/werken/10-3d-sculptuur/foto-01.webp</image:loc></image:image>
+  </url>
+</urlset>

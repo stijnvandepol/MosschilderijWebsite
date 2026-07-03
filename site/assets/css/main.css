@@ -1,0 +1,1474 @@
+/* ==========================================================================
+   Moskunst — specimen-archief / editorial
+   Tokens eerst, dan basis, dan componenten in paginavolgorde.
+   ========================================================================== */
+
+:root {
+  /* Kleur */
+  --paper:      #EDEAE1;
+  --paper-2:    #F6F4EE;
+  --ink:        #22271C;
+  --ink-soft:   #555C48;
+  --moss:       #6E7B45;
+  --moss-hel:   #8FA653;
+  --moss-deep:  #434D28;
+  --acacia:     #B08150;
+  --acacia-diep:#8A6238;
+  --gloed:      #E9A84C;
+  --line:       #D4D0C4;
+
+  /* Donker specimenvel */
+  --panel:      #12160F;
+  --panel-2:    #1C2316;
+  --panel-3:    #242D1C;
+  --paper-op-panel: #E7E3D6;
+
+  /* Typografie */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+
+  /* Schaal */
+  --maat-etiket: 0.8125rem;
+  --maat-body: 1.0625rem;
+  --maat-h3: 1.45rem;
+  --maat-h2: clamp(2.6rem, 6vw, 4.4rem);
+  --maat-hero: clamp(3.4rem, 10.5vw, 9.75rem);
+
+  /* Ritme & beweging */
+  --sectie-ruimte: clamp(6rem, 13vw, 11rem);
+  --binnen-breedte: 82rem;
+  --vloeiend: cubic-bezier(0.22, 1, 0.36, 1);
+  --overgang: 300ms var(--vloeiend);
+}
+
+/* ------------------------------- Basis --------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+/* de topbalk is fixed: ankers niet onder de balk laten verdwijnen */
+[id] { scroll-margin-top: 5.5rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--maat-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+/* Fijne papierkorrel over de hele site */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+::selection { background: var(--moss); color: var(--paper-2); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 0.6em;
+  letter-spacing: -0.02em;
+}
+
+h2 { font-size: var(--maat-h2); }
+h3 { font-size: var(--maat-h3); }
+
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--moss-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--moss); }
+
+ul, ol { margin: 0; padding: 0; }
+
+button { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--moss-hel);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visueel-verborgen {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem; top: -4rem;
+  z-index: 1300;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  transition: top var(--overgang);
+}
+.skip-link:focus { top: 1rem; color: var(--paper); }
+
+/* ------------------------------ Preloader ------------------------------- */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: var(--panel);
+  color: var(--paper-2);
+  display: grid;
+  place-items: center;
+  transition: transform 800ms var(--vloeiend);
+}
+.preloader--klaar { transform: translateY(-101%); }
+
+.preloader__binnen {
+  text-align: center;
+  animation: preloader-op 700ms var(--vloeiend) both;
+}
+@keyframes preloader-op {
+  from { opacity: 0; transform: translateY(26px); }
+}
+
+.preloader__merk {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  margin: 0 0 0.4rem;
+}
+.preloader__etiket {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss-hel);
+  margin: 0;
+}
+
+/* zonder JavaScript mag de preloader nooit de inhoud blokkeren */
+html:not(.js) .preloader { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+}
+
+/* ------------------------- Herbarium-bouwstenen ------------------------- */
+
+.etiket {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin: 0 0 1.4rem;
+}
+
+/* haarlijn die zichzelf tekent zodra de sectie in beeld komt */
+.eyebrow__lijn {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--moss);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--vloeiend) 150ms;
+}
+.is-zichtbaar .eyebrow__lijn,
+html:not(.js) .eyebrow__lijn { transform: scaleX(1); }
+
+.sectie__accent {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--moss);
+  letter-spacing: 0;
+}
+
+/* Montagevel: hoekmarkeringen zoals op een herbariumblad */
+.specimen-montage { position: relative; }
+.specimen-montage::before,
+.specimen-montage::after {
+  content: '+';
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--gloed);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 2;
+}
+.specimen-montage::before { top: -0.6rem; left: -0.6rem; }
+.specimen-montage::after { bottom: -0.6rem; right: -0.6rem; }
+
+.invul-slot {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--acacia);
+}
+
+/* ------------------------------- Knoppen -------------------------------- */
+
+.knop {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.9rem 1.8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color var(--overgang), border-color var(--overgang),
+              transform var(--overgang), box-shadow var(--overgang);
+}
+.knop:active { transform: translateY(1px) scale(0.99); }
+
+/* primaire knop: mosgroene vulling die bij hover doorschuift */
+.knop--gloed {
+  background: linear-gradient(105deg, var(--moss-deep) 0%, var(--moss) 50%, var(--moss-deep) 100%);
+  background-size: 220% 100%;
+  background-position: 0% 0%;
+  color: var(--paper-2);
+  transition: background-position 500ms var(--vloeiend), transform var(--overgang), box-shadow var(--overgang);
+}
+.knop--gloed:hover {
+  background-position: 95% 0%;
+  box-shadow: 0 10px 28px -10px rgba(67, 77, 40, 0.55);
+}
+
+/* omlijnde knop op donkere vlakken */
+.knop--omlijnd {
+  background: transparent;
+  color: var(--paper-op-panel);
+  border-color: color-mix(in srgb, var(--paper-op-panel) 45%, transparent);
+}
+.knop--omlijnd:hover {
+  border-color: var(--gloed);
+  color: var(--gloed);
+}
+
+.knop--klein { padding: 0.5rem 1.15rem; font-size: 0.9375rem; }
+.knop--breed { width: 100%; }
+
+/* ------------------------------- Secties -------------------------------- */
+
+.sectie {
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: var(--sectie-ruimte) clamp(1.25rem, 4vw, 3rem) 0;
+}
+.sectie__kop { max-width: 52rem; margin-bottom: 3.5rem; }
+.sectie__intro { color: var(--ink-soft); font-size: 1.1rem; max-width: 38rem; }
+
+/* ------------------------------- Topbalk -------------------------------- */
+
+.topbalk {
+  --balk-bg: transparent;
+  --balk-tekst: var(--paper-op-panel);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: var(--balk-bg);
+  transition: background 400ms ease, border-color 400ms ease,
+              transform 450ms var(--vloeiend), backdrop-filter 400ms ease;
+  border-bottom: 1px solid transparent;
+}
+.topbalk--licht {
+  --balk-bg: color-mix(in srgb, var(--paper) 88%, transparent);
+  --balk-tekst: var(--ink);
+  backdrop-filter: blur(12px);
+  border-bottom-color: var(--line);
+}
+.topbalk--verborgen { transform: translateY(-100%); }
+
+.topbalk__binnen {
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: 0.9rem clamp(1.25rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.woordmerk {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--balk-tekst);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  transition: color 400ms ease;
+}
+.woordmerk__sub {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--moss-hel);
+}
+
+.hoofdnav__lijst {
+  display: flex;
+  align-items: center;
+  gap: 1.7rem;
+  list-style: none;
+}
+.hoofdnav__lijst a:not(.knop) {
+  position: relative;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--balk-tekst);
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  transition: color 400ms ease;
+}
+.hoofdnav__lijst a:not(.knop)::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--moss-hel);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--vloeiend);
+}
+.hoofdnav__lijst a:not(.knop):hover::after,
+.hoofdnav__lijst a.is-actief::after { transform: scaleX(1); }
+
+.hoofdnav__hamburger {
+  display: none;
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--balk-tekst) 35%, transparent);
+  border-radius: 2px;
+  padding: 0.7rem 0.65rem;
+  cursor: pointer;
+}
+.hamburger-lijn,
+.hamburger-lijn::before,
+.hamburger-lijn::after {
+  content: '';
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  background: var(--balk-tekst);
+  transition: transform var(--overgang), opacity var(--overgang), background 400ms ease;
+}
+.hamburger-lijn { position: relative; }
+.hamburger-lijn::before { position: absolute; top: -6px; }
+.hamburger-lijn::after { position: absolute; top: 6px; }
+.hoofdnav__hamburger[aria-expanded="true"] .hamburger-lijn { background: transparent; }
+.hoofdnav__hamburger[aria-expanded="true"] .hamburger-lijn::before { transform: translateY(6px) rotate(45deg); }
+.hoofdnav__hamburger[aria-expanded="true"] .hamburger-lijn::after { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 47.9375rem) {
+  .hoofdnav__hamburger { display: block; }
+  .topbalk:not(.topbalk--licht) { background: color-mix(in srgb, var(--panel) 80%, transparent); backdrop-filter: blur(10px); }
+  .hoofdnav__lijst {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--panel-3);
+    padding: 0.5rem 1.5rem 1.25rem;
+  }
+  .topbalk--licht .hoofdnav__lijst {
+    background: var(--paper-2);
+    border-bottom-color: var(--line);
+  }
+  .hoofdnav__lijst.is-open { display: flex; }
+  .hoofdnav__lijst li { padding: 0.6rem 0; }
+  .hoofdnav__cta { padding-top: 1rem; }
+}
+
+/* -------------------------------- Hero ---------------------------------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 74% 40%, rgba(233, 168, 76, 0.12), transparent 62%),
+    linear-gradient(166deg, var(--panel) 0%, var(--panel-2) 58%, var(--panel-3) 100%);
+  color: var(--paper-op-panel);
+  overflow: clip;
+}
+
+/* stille, warme gloed achter het medaillon */
+.hero__gloed {
+  position: absolute;
+  right: -8%;
+  top: 6%;
+  width: 58vw;
+  height: 58vw;
+  max-width: 56rem;
+  max-height: 56rem;
+  background: radial-gradient(circle, rgba(233, 168, 76, 0.2) 0%, rgba(233, 168, 76, 0.05) 45%, transparent 68%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* het verlichte werk als rond medaillon, deels achter de kop */
+.hero__medaillon {
+  position: absolute;
+  right: clamp(1rem, 7vw, 8rem);
+  top: 50%;
+  margin: 0;
+  width: min(42vw, 33rem);
+  aspect-ratio: 1;
+  z-index: 1;
+}
+html.js .hero__medaillon {
+  opacity: 0;
+  transform: translateY(calc(-50% + 30px)) scale(0.96);
+  transition: opacity 1200ms ease 500ms, transform 1200ms var(--vloeiend) 500ms;
+}
+html.klaar .hero__medaillon,
+html:not(.js) .hero__medaillon {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+
+/* vrijstaand beeld: de achtergrond is transparant, de gloed vloeit
+   vanzelf over in het donkere paneel */
+.hero__medaillon-beeld {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* tekstring om de gloed heen; draait alleen mee met het scrollen */
+.hero__ring {
+  position: absolute;
+  inset: -3%;
+  will-change: transform;
+}
+.hero__ring text {
+  font-family: var(--font-mono);
+  font-size: 8.2px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  fill: color-mix(in srgb, var(--paper-op-panel) 55%, transparent);
+}
+
+.hero__binnen {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: clamp(6.5rem, 12vh, 9rem) clamp(1.25rem, 4vw, 3rem) clamp(4rem, 9vh, 6rem);
+}
+
+.hero__eyebrow { color: var(--moss-hel); }
+.hero__eyebrow .eyebrow__lijn { background: var(--moss-hel); }
+html.js:not(.klaar) .hero__eyebrow { opacity: 0; }
+html.klaar .hero__eyebrow { opacity: 1; transition: opacity 700ms ease 150ms; }
+html.klaar .hero__eyebrow .eyebrow__lijn { transform: scaleX(1); }
+
+.hero__kop {
+  font-size: var(--maat-hero);
+  font-weight: 560;
+  font-variation-settings: 'opsz' 144;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--paper-2);
+  margin: 0 0 0.35em;
+  text-shadow: 0 2px 30px rgba(18, 22, 15, 0.45);
+}
+.hero__kop em {
+  font-style: italic;
+  font-weight: 420;
+  color: var(--gloed);
+}
+
+/* regel-voor-regel onthulling bij het laden */
+.hero__regel { display: block; overflow: hidden; }
+.hero__regel > span { display: inline-block; }
+html.js .hero__regel > span {
+  transform: translateY(112%);
+  transition: transform 1100ms var(--vloeiend);
+}
+html.js .hero__regel:nth-child(1) > span { transition-delay: 120ms; }
+html.js .hero__regel:nth-child(2) > span { transition-delay: 220ms; }
+html.js .hero__regel:nth-child(3) > span { transition-delay: 320ms; }
+html.js .hero__regel:nth-child(4) > span { transition-delay: 420ms; }
+html.klaar .hero__regel > span { transform: none; }
+
+.hero__onder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 2rem 3rem;
+  margin-top: 2.5rem;
+}
+.hero__sub {
+  font-size: 1.125rem;
+  color: color-mix(in srgb, var(--paper-op-panel) 80%, transparent);
+  max-width: 26rem;
+  margin: 0;
+}
+html.js .hero__sub,
+html.js .hero__knoppen {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 800ms ease, transform 800ms var(--vloeiend);
+}
+html.js .hero__sub { transition-delay: 620ms; }
+html.js .hero__knoppen { transition-delay: 740ms; }
+html.klaar .hero__sub,
+html.klaar .hero__knoppen { opacity: 1; transform: none; }
+
+.hero__knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.hero__etiket {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 3rem);
+  bottom: 1.4rem;
+  color: color-mix(in srgb, var(--paper-op-panel) 55%, transparent);
+}
+html.js .hero__etiket { opacity: 0; transition: opacity 900ms ease 1100ms; }
+html.klaar .hero__etiket { opacity: 1; }
+
+@media (max-width: 63.9375rem) {
+  .hero { min-height: auto; }
+  .hero__medaillon {
+    position: relative;
+    right: auto; top: auto;
+    width: min(64vw, 22rem);
+    margin: 6.5rem auto 0;
+  }
+  html.js .hero__medaillon { transform: translateY(30px) scale(0.96); }
+  html.klaar .hero__medaillon,
+  html:not(.js) .hero__medaillon { transform: none; }
+  .hero__binnen { padding-top: 2.5rem; }
+  .hero__etiket { position: static; margin-top: 2rem; }
+  .hero { flex-direction: column; align-items: stretch; }
+}
+
+/* --------------------------- Materialenlint ----------------------------- */
+
+.lint {
+  background: var(--acacia);
+  color: #2B1F12;
+  overflow: clip;
+  transform: rotate(-0.8deg) scale(1.02);
+  margin: -0.6rem 0;
+  border-top: 1px solid var(--acacia-diep);
+  border-bottom: 1px solid var(--acacia-diep);
+  position: relative;
+  z-index: 3;
+}
+
+.lint__baan {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  width: max-content;
+  padding: 0.85rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: transform; /* schuift mee met het scrollen, via JS */
+}
+.lint__baan i { font-style: normal; color: var(--paper-2); }
+
+/* ------------------------------ Kenmerken ------------------------------- */
+
+.kenmerken {
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: var(--sectie-ruimte) clamp(1.25rem, 4vw, 3rem) 0;
+}
+
+.kenmerken__lijst {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem 2.25rem;
+}
+
+.kenmerk {
+  position: relative;
+  padding-top: 1.5rem;
+}
+/* haarlijn die zich per kenmerk uittekent */
+.kenmerk::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--moss);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--vloeiend);
+}
+.kenmerk:nth-child(2)::before { background: var(--moss-hel); transition-delay: 120ms; }
+.kenmerk:nth-child(3)::before { background: var(--acacia); transition-delay: 240ms; }
+.kenmerk:nth-child(4)::before { background: var(--moss-deep); transition-delay: 360ms; }
+.kenmerk.is-zichtbaar::before,
+html:not(.js) .kenmerk::before { transform: scaleX(1); }
+
+.kenmerk__index {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--moss);
+  margin-bottom: 0.9rem;
+  transition: color var(--overgang);
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .kenmerk__index { color: var(--moss); }
+}
+.kenmerk:hover .kenmerk__index { color: var(--moss); }
+
+.kenmerk__label {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--moss-deep);
+  margin: 0 0 0.6rem;
+}
+
+.kenmerk p {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 63.9375rem) { .kenmerken__lijst { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 30rem) { .kenmerken__lijst { grid-template-columns: 1fr; } }
+
+/* ------------------------------ Collectie ------------------------------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.filter-chip {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  letter-spacing: 0.03em;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  transition: border-color var(--overgang), color var(--overgang),
+              background var(--overgang), box-shadow var(--overgang);
+}
+.filter-chip:hover {
+  border-color: var(--moss);
+  color: var(--moss-deep);
+}
+.filter-chip.is-actief {
+  background: var(--moss-deep);
+  border-color: var(--moss-deep);
+  color: var(--paper-2);
+  box-shadow: 0 8px 20px -10px rgba(67, 77, 40, 0.6);
+}
+
+/* editorial grid: wisselende breedtes, hoogtes en inspringen */
+.collectie-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(3rem, 6vw, 5.5rem) 1.5rem;
+}
+
+.werk-kaart { --foto-verhouding: 4 / 3; }
+
+@media (min-width: 64rem) {
+  .werk-kaart:nth-child(10n + 1) { grid-column: 1 / span 7; --foto-verhouding: 16 / 10; }
+  .werk-kaart:nth-child(10n + 2) { grid-column: 9 / span 4; --foto-verhouding: 3 / 4; margin-top: 22%; }
+  .werk-kaart:nth-child(10n + 3) { grid-column: 2 / span 4; --foto-verhouding: 3 / 4; }
+  .werk-kaart:nth-child(10n + 4) { grid-column: 7 / span 6; --foto-verhouding: 16 / 10; margin-top: 14%; }
+  .werk-kaart:nth-child(10n + 5) { grid-column: 1 / span 6; --foto-verhouding: 4 / 3; }
+  .werk-kaart:nth-child(10n + 6) { grid-column: 8 / span 5; --foto-verhouding: 3 / 4; margin-top: 18%; }
+  .werk-kaart:nth-child(10n + 7) { grid-column: 2 / span 5; --foto-verhouding: 3 / 4; }
+  .werk-kaart:nth-child(10n + 8) { grid-column: 8 / span 5; --foto-verhouding: 4 / 3; margin-top: 10%; }
+  .werk-kaart:nth-child(10n + 9) { grid-column: 1 / span 7; --foto-verhouding: 16 / 10; }
+  .werk-kaart:nth-child(10n)     { grid-column: 9 / span 4; --foto-verhouding: 3 / 4; margin-top: 20%; }
+}
+@media (min-width: 40rem) and (max-width: 63.9375rem) {
+  .werk-kaart:nth-child(odd)  { grid-column: 1 / span 6; }
+  .werk-kaart:nth-child(even) { grid-column: 7 / span 6; margin-top: 14%; }
+}
+@media (max-width: 39.9375rem) {
+  .werk-kaart { grid-column: 1 / -1; }
+}
+
+.werk-kaart[hidden] { display: none; }
+
+.werk-kaart__knop {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* groot catalogusnummer dat over de fotorand valt */
+.werk-kaart__nummer {
+  position: absolute;
+  top: -0.55em;
+  left: -0.12em;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--ink);
+  opacity: 0.85;
+  pointer-events: none;
+  transition: color var(--overgang), opacity var(--overgang);
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .werk-kaart__nummer { color: var(--moss-deep); }
+}
+.werk-kaart__knop:hover .werk-kaart__nummer { color: var(--moss); opacity: 1; }
+
+.werk-kaart__foto {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--paper-2);
+  aspect-ratio: var(--foto-verhouding);
+}
+.werk-kaart__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1000ms var(--vloeiend), filter 1000ms var(--vloeiend);
+}
+.werk-kaart__knop:hover .werk-kaart__foto img {
+  transform: scale(1.06);
+  filter: saturate(1.12);
+}
+
+.werk-kaart__body {
+  display: block;
+  padding: 1.1rem 0.1rem 0;
+}
+.werk-kaart__titel {
+  display: block;
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  margin-bottom: 0.35rem;
+}
+.werk-kaart__titel::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 2px;
+  background: var(--moss);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--vloeiend);
+}
+.werk-kaart__knop:hover .werk-kaart__titel::after { transform: scaleX(1); }
+
+.werk-kaart__body > .etiket {
+  display: block;
+  transition: color var(--overgang);
+}
+.werk-kaart__knop:hover .werk-kaart__body > .etiket { color: var(--moss); }
+
+.werk-kaart__voet {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 0.5rem;
+}
+.werk-kaart__prijs {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  color: var(--moss-deep);
+}
+.werk-kaart__cta {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  color: var(--acacia);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--overgang), transform var(--overgang);
+}
+.werk-kaart__pijl {
+  display: inline-block;
+  transition: transform var(--overgang);
+}
+.werk-kaart__knop:hover .werk-kaart__cta { opacity: 1; transform: none; }
+.werk-kaart__knop:hover .werk-kaart__pijl { transform: translateX(4px); }
+
+.collectie-leeg {
+  margin-top: 2rem;
+  color: var(--ink-soft);
+}
+
+/* --------------------------- Detail-overlay ----------------------------- */
+
+.werk-detail {
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: 0;
+  max-width: min(64rem, calc(100vw - 2rem));
+  width: 100%;
+  max-height: calc(100dvh - 2rem);
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.6);
+}
+.werk-detail[open] { animation: dialoog-in 420ms var(--vloeiend); }
+@keyframes dialoog-in {
+  from { opacity: 0; transform: translateY(26px) scale(0.975); }
+}
+.werk-detail::backdrop {
+  background: rgba(18, 22, 15, 0.78);
+  backdrop-filter: blur(6px);
+  animation: backdrop-in 320ms ease;
+}
+@keyframes backdrop-in { from { opacity: 0; } }
+
+.werk-detail__binnen {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.werk-detail__sluit {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--overgang), border-color var(--overgang), color var(--overgang);
+}
+.werk-detail__sluit:hover {
+  border-color: var(--moss);
+  color: var(--moss-deep);
+  transform: rotate(90deg);
+}
+
+.werk-detail__hoofdfoto {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.werk-detail__thumbs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.werk-detail__thumbs button {
+  display: block;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: none;
+  cursor: pointer;
+  transition: transform var(--overgang), border-color var(--overgang);
+}
+.werk-detail__thumbs button:hover { transform: translateY(-3px); border-color: var(--moss); }
+.werk-detail__thumbs button.is-actief { border-color: var(--moss-deep); outline: 1px solid var(--moss-deep); }
+.werk-detail__thumbs img {
+  width: 4.5rem;
+  height: 3.4rem;
+  object-fit: cover;
+}
+
+.werk-detail__info h3 { margin-top: 0.5rem; }
+.werk-detail__info .etiket { margin-bottom: 1.2rem; }
+.werk-detail__prijs {
+  font-family: var(--font-mono);
+  color: var(--moss-deep);
+  margin: 1.2rem 0 1.6rem;
+}
+
+@media (max-width: 47.9375rem) {
+  .werk-detail__binnen { grid-template-columns: 1fr; padding: 1.25rem; }
+}
+
+/* ------------------- Scrollstrook (schuift met scroll) ------------------- */
+
+.schuiftekst {
+  overflow: clip;
+  padding-top: var(--sectie-ruimte);
+  margin-bottom: calc(-1 * var(--sectie-ruimte) / 2);
+}
+.schuiftekst__regel {
+  width: max-content;
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--moss);
+  opacity: 0.75;
+  will-change: transform;
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .schuiftekst__regel { color: color-mix(in srgb, var(--moss) 40%, transparent); }
+}
+
+/* ----------------------------- Configurator ----------------------------- */
+
+.sectie--donker {
+  position: relative;
+  max-width: none;
+  background: linear-gradient(172deg, var(--panel) 0%, var(--panel-2) 60%, var(--panel) 100%);
+  color: var(--paper-op-panel);
+  margin-top: var(--sectie-ruimte);
+  padding: var(--sectie-ruimte) clamp(1.25rem, 4vw, 3rem);
+  overflow: clip;
+}
+.sectie--donker__gloed {
+  position: absolute;
+  left: -10%;
+  bottom: -20%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 50rem;
+  max-height: 50rem;
+  background: radial-gradient(circle, rgba(143, 166, 83, 0.14) 0%, transparent 65%);
+  pointer-events: none;
+}
+.sectie--donker .sectie__kop,
+.sectie--donker .configurator {
+  position: relative;
+  max-width: var(--binnen-breedte);
+  margin-left: auto;
+  margin-right: auto;
+}
+.sectie--donker .sectie__kop { margin-bottom: 3rem; }
+.sectie--donker h2 { color: var(--paper-2); }
+.sectie--donker .sectie__accent { color: var(--moss-hel); }
+.sectie--donker .sectie__intro { color: color-mix(in srgb, var(--paper-op-panel) 75%, transparent); }
+.sectie--donker .etiket { color: color-mix(in srgb, var(--paper-op-panel) 62%, transparent); }
+
+.configurator__presets-label { margin-bottom: 0.85rem; }
+
+.configurator__presets-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+}
+
+.preset-knop {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  background: transparent;
+  color: var(--paper-op-panel);
+  border: 1px solid color-mix(in srgb, var(--paper-op-panel) 28%, transparent);
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  cursor: pointer;
+  transition: border-color var(--overgang), background var(--overgang), box-shadow var(--overgang);
+}
+.preset-knop:hover { border-color: var(--moss-hel); }
+.preset-knop.is-actief {
+  background: var(--moss-deep);
+  border-color: var(--moss-hel);
+  color: var(--paper-2);
+  box-shadow: 0 8px 24px -10px rgba(143, 166, 83, 0.5);
+}
+
+.configurator__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+@media (max-width: 63.9375rem) {
+  .configurator__grid { grid-template-columns: 1fr; }
+}
+
+.cfg-groep {
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--paper-op-panel) 16%, transparent);
+  margin: 0;
+  padding: 1.35rem 0 1.6rem;
+}
+.cfg-groep[hidden] { display: none; }
+.cfg-groep legend {
+  padding: 0 0 0.85rem;
+  float: left; /* legenda binnen de border-top laten vallen */
+  width: 100%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cfg-groep legend + * { clear: both; }
+
+.cfg-opties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cfg-optie input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.cfg-optie .cfg-optie__vlak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.9375rem;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--paper-op-panel) 28%, transparent);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color var(--overgang), background var(--overgang),
+              color var(--overgang), box-shadow var(--overgang);
+}
+.cfg-optie:hover .cfg-optie__vlak { border-color: var(--moss-hel); }
+.cfg-optie input:checked + .cfg-optie__vlak {
+  background: var(--moss-hel);
+  border-color: var(--moss-hel);
+  color: var(--panel);
+  font-weight: 600;
+  box-shadow: 0 8px 22px -8px rgba(143, 166, 83, 0.55);
+}
+.cfg-optie input:focus-visible + .cfg-optie__vlak {
+  outline: 2px solid var(--moss-hel);
+  outline-offset: 3px;
+}
+.cfg-optie__toeslag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-style: normal;
+  opacity: 0.75;
+}
+
+/* vorm-pictogrammen en kleurstalen in de keuzechips */
+.cfg-optie__icoon { display: inline-flex; }
+.cfg-optie__icoon svg { width: 1.15rem; height: 1.15rem; }
+
+.cfg-optie__stalen { display: inline-flex; gap: 3px; }
+.cfg-optie__staal {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+/* Preview: een licht 'herbariumvel' op het donkere paneel */
+.configurator__preview {
+  position: sticky;
+  top: 5.5rem;
+}
+
+.specimen-vel {
+  background: var(--paper-2);
+  color: var(--ink);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 1.6rem 1.6rem 1.35rem;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 34px 80px -34px rgba(0, 0, 0, 0.8);
+  transform: rotate(0.6deg);
+  transition: transform 600ms var(--vloeiend);
+}
+.specimen-vel:hover { transform: rotate(0deg); }
+.specimen-vel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.specimen-vel .etiket--levend {
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 0.95rem;
+  min-height: 2.6em;
+}
+
+.configurator__prijs {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  color: var(--moss-deep);
+  margin: 0.6rem 0 0.2rem;
+}
+.configurator__prijs-noot {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ------------------------------ Werkwijze ------------------------------- */
+
+.werkwijze {
+  list-style: none;
+  max-width: 60rem;
+}
+
+.werkwijze__stap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(6rem, 9rem) 1fr;
+  gap: 1.5rem 2.5rem;
+  align-items: start;
+  padding: 2.2rem 0 2.4rem;
+  transition: transform 450ms var(--vloeiend);
+}
+.werkwijze__stap:hover { transform: translateX(10px); }
+
+/* lijn die zich per stap uittekent zodra hij in beeld komt */
+.werkwijze__stap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--moss), color-mix(in srgb, var(--moss) 20%, transparent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--vloeiend);
+}
+.werkwijze__stap.is-zichtbaar::before,
+html:not(.js) .werkwijze__stap::before { transform: scaleX(1); }
+
+.werkwijze__nummer {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(3.4rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--moss);
+  transition: color var(--overgang);
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .werkwijze__nummer { color: var(--moss); }
+}
+.werkwijze__stap:hover .werkwijze__nummer { color: var(--moss); }
+
+.werkwijze__inhoud h3 { font-size: clamp(1.35rem, 2.2vw, 1.8rem); margin: 0 0 0.4rem; }
+.werkwijze__inhoud p { color: var(--ink-soft); max-width: 34rem; }
+
+@media (max-width: 40rem) {
+  .werkwijze__stap { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+
+/* --------------------------------- Over ---------------------------------- */
+
+.over {
+  margin-top: var(--sectie-ruimte);
+  background: linear-gradient(160deg, var(--moss-deep) 0%, #37411F 55%, var(--panel-3) 100%);
+  color: var(--paper-op-panel);
+  overflow: clip;
+}
+.over__binnen {
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+@media (max-width: 63.9375rem) {
+  .over__binnen { grid-template-columns: 1fr; }
+  .over__medaillon { max-width: 20rem; }
+}
+
+.over__medaillon {
+  margin: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(231, 227, 214, 0.18),
+    0 50px 100px -40px rgba(0, 0, 0, 0.7);
+  transform: rotate(-2deg);
+}
+.over__medaillon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
+.over .eyebrow { color: var(--moss-hel); }
+.over .eyebrow__lijn { background: var(--moss-hel); }
+.over h2 { color: var(--paper-2); }
+
+.over__groot {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+  line-height: 1.4;
+  margin-bottom: 1.1em;
+}
+.over__groot em {
+  font-style: italic;
+  color: var(--gloed);
+}
+.over__tekst > p:last-child {
+  color: color-mix(in srgb, var(--paper-op-panel) 78%, transparent);
+  max-width: 40rem;
+}
+.over .invul-slot { color: var(--gloed); }
+
+/* -------------------------------- Reviews -------------------------------- */
+
+.sectie--smal { max-width: 50rem; }
+.reviews { list-style: none; display: grid; gap: 1.5rem; }
+.review blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+}
+
+/* -------------------------------- Contact -------------------------------- */
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+@media (max-width: 47.9375rem) { .contact__grid { grid-template-columns: 1fr; } }
+
+.veld { margin-bottom: 1.25rem; }
+.veld label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+  color: var(--ink-soft);
+}
+.veld input,
+.veld textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0.8rem 1rem;
+  transition: border-color var(--overgang), box-shadow var(--overgang);
+}
+.veld input:focus-visible,
+.veld textarea:focus-visible {
+  outline: none;
+  border-color: var(--moss);
+  box-shadow: 0 0 0 3px rgba(110, 123, 69, 0.22);
+}
+.veld textarea { resize: vertical; }
+.veld__hint {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin: 0.35rem 0 0;
+}
+.veld input[type="file"] { padding: 0.65rem 1rem; }
+
+.formulier-status {
+  font-family: var(--font-mono);
+  font-size: var(--maat-etiket);
+  color: var(--moss-deep);
+  min-height: 1.4em;
+  margin: 0 0 0.9rem;
+}
+.formulier-status.is-fout { color: #8A3B2E; }
+
+/* direct-kanalen als donker specimenpaneel */
+.contact__direct {
+  background: linear-gradient(160deg, var(--panel-2), var(--panel-3));
+  color: var(--paper-op-panel);
+  border: 1px solid var(--panel-3);
+  padding: 1.9rem 1.8rem 2rem;
+  box-shadow: 0 26px 60px -30px rgba(18, 22, 15, 0.55);
+}
+.contact__direct > .etiket {
+  color: var(--moss-hel);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.1rem;
+}
+.contact__kanalen {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.contact__kanalen .knop { display: block; }
+.contact__kanalen li:has(> [hidden]) { display: none; }
+.contact__noot {
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--paper-op-panel) 72%, transparent);
+}
+
+/* --------------------------------- Voet ---------------------------------- */
+
+.voet {
+  margin-top: var(--sectie-ruimte);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  color: var(--paper-op-panel);
+  overflow: clip;
+}
+
+/* het merk op reuzenformaat, van rand tot rand */
+.voet__reuze {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(4.2rem, 16.5vw, 16rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-align: center;
+  color: var(--paper-2);
+  margin: 0;
+  padding: clamp(2.5rem, 6vw, 5rem) 1rem 0;
+  user-select: none;
+}
+
+.voet__binnen {
+  max-width: var(--binnen-breedte);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) 3rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--paper-op-panel) 14%, transparent);
+}
+@media (max-width: 47.9375rem) { .voet__binnen { grid-template-columns: 1fr; } }
+
+.voet .etiket { color: color-mix(in srgb, var(--paper-op-panel) 60%, transparent); }
+
+.voet__nav {
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+.voet__nav a {
+  font-size: 0.9375rem;
+  color: var(--paper-op-panel);
+  text-decoration: none;
+  transition: color var(--overgang);
+}
+.voet__nav a:hover { color: var(--moss-hel); }
+
+.voet__meta { list-style: none; display: grid; gap: 0.4rem; }
+.voet__meta li[hidden] { display: none; }
+.voet__meta a { color: inherit; }
+.voet__meta a:hover { color: var(--moss-hel); }
+
+/* ------------------------------- Beweging -------------------------------- */
+
+/* scroll-onthulling: zachte lift die scherpstelt */
+.onthul {
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(4px);
+  transition:
+    opacity 750ms ease,
+    transform 750ms var(--vloeiend),
+    filter 750ms ease;
+  transition-delay: var(--onthul-vertraging, 0ms);
+}
+.onthul.is-zichtbaar {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .onthul { opacity: 1; transform: none; filter: none; }
+  html.js .hero__regel > span,
+  html.js .hero__sub,
+  html.js .hero__knoppen,
+  html.js .hero__medaillon,
+  html.js .hero__etiket,
+  html.js .hero__eyebrow { opacity: 1; transform: none; }
+  html.js .hero__medaillon { transform: translateY(-50%); }
+  .schuiftekst__regel,
+  .lint__baan,
+  .hero__ring { transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 63.9375rem) {
+  html.js .hero__medaillon { transform: none; }
+}

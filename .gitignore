@@ -1,0 +1,10 @@
+# Besturingssysteem
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Node (alleen voor incidentele tooling, de site heeft geen dependencies)
+node_modules/

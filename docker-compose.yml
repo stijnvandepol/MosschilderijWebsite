@@ -1,0 +1,8 @@
+services:
+  website:
+    build: .
+    image: moskunst-website
+    container_name: moskunst-website
+    ports:
+      - "8080:80"
+    restart: unless-stopped
