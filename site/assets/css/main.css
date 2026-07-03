@@ -577,6 +577,7 @@ html.klaar .hero__etiket { opacity: 1; }
 
 @media (max-width: 63.9375rem) {
   .hero { min-height: auto; }
+  .hero__gloed { display: none; } /* het beeld heeft zijn eigen gloed */
   .hero__medaillon {
     position: relative;
     right: auto; top: auto;
@@ -731,19 +732,25 @@ html:not(.js) .kenmerk::before { transform: scaleX(1); }
   gap: clamp(3rem, 6vw, 5.5rem) 1.5rem;
 }
 
-.werk-kaart { --foto-verhouding: 4 / 3; }
+/* de verhouding volgt de foto zelf, zodat er nooit een half werk wegvalt:
+   bijna alles is 16:9 aangeleverd; 07 is 4:3, 05 en 10 zijn staand */
+.werk-kaart { --foto-verhouding: 16 / 9; }
+.werk-kaart[data-werk="07"] { --foto-verhouding: 4 / 3; }
+.werk-kaart[data-werk="05"],
+.werk-kaart[data-werk="10"] { --foto-verhouding: 3 / 4; }
 
 @media (min-width: 64rem) {
-  .werk-kaart:nth-child(10n + 1) { grid-column: 1 / span 7; --foto-verhouding: 16 / 10; }
-  .werk-kaart:nth-child(10n + 2) { grid-column: 9 / span 4; --foto-verhouding: 3 / 4; margin-top: 22%; }
-  .werk-kaart:nth-child(10n + 3) { grid-column: 2 / span 4; --foto-verhouding: 3 / 4; }
-  .werk-kaart:nth-child(10n + 4) { grid-column: 7 / span 6; --foto-verhouding: 16 / 10; margin-top: 14%; }
-  .werk-kaart:nth-child(10n + 5) { grid-column: 1 / span 6; --foto-verhouding: 4 / 3; }
-  .werk-kaart:nth-child(10n + 6) { grid-column: 8 / span 5; --foto-verhouding: 3 / 4; margin-top: 18%; }
-  .werk-kaart:nth-child(10n + 7) { grid-column: 2 / span 5; --foto-verhouding: 3 / 4; }
-  .werk-kaart:nth-child(10n + 8) { grid-column: 8 / span 5; --foto-verhouding: 4 / 3; margin-top: 10%; }
-  .werk-kaart:nth-child(10n + 9) { grid-column: 1 / span 7; --foto-verhouding: 16 / 10; }
-  .werk-kaart:nth-child(10n)     { grid-column: 9 / span 4; --foto-verhouding: 3 / 4; margin-top: 20%; }
+  /* editorial ritme: breed / smal / inspringen — staande foto's in smalle vakken */
+  .werk-kaart[data-werk="01"] { grid-column: 1 / span 7; }
+  .werk-kaart[data-werk="02"] { grid-column: 9 / span 4; margin-top: 26%; }
+  .werk-kaart[data-werk="03"] { grid-column: 2 / span 5; }
+  .werk-kaart[data-werk="04"] { grid-column: 8 / span 5; margin-top: 16%; }
+  .werk-kaart[data-werk="05"] { grid-column: 1 / span 5; }
+  .werk-kaart[data-werk="06"] { grid-column: 7 / span 6; margin-top: 24%; }
+  .werk-kaart[data-werk="07"] { grid-column: 1 / span 5; }
+  .werk-kaart[data-werk="08"] { grid-column: 7 / span 6; margin-top: 12%; }
+  .werk-kaart[data-werk="09"] { grid-column: 1 / span 7; }
+  .werk-kaart[data-werk="10"] { grid-column: 9 / span 4; margin-top: 18%; }
 }
 @media (min-width: 40rem) and (max-width: 63.9375rem) {
   .werk-kaart:nth-child(odd)  { grid-column: 1 / span 6; }
@@ -921,7 +928,8 @@ html:not(.js) .kenmerk::before { transform: scaleX(1); }
 .werk-detail__hoofdfoto {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain; /* hele foto tonen, nooit een half werk */
+  background: var(--paper);
   border: 1px solid var(--line);
 }
 

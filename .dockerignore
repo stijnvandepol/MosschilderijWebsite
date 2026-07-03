@@ -5,3 +5,6 @@
 README.md
 docker-compose.yml
 advertenties
+
+# zware bronbestanden (uitgesneden PNG's); de site gebruikt de webp-versies
+site/assets/images/werken/**/*.png
