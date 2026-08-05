@@ -1,0 +1,425 @@
+- generic [active] [ref=f1e1]:
+  - link "Direct naar de inhoud" [ref=f1e2] [cursor=pointer]:
+    - /url: "#hoofdinhoud"
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Moskunst Eersel" [ref=f1e5] [cursor=pointer]:
+        - /url: "#top"
+        - text: Moskunst
+        - generic [ref=f1e6]: Eersel
+      - navigation "Hoofdnavigatie" [ref=f1e7]:
+        - button "Menu" [ref=f1e8] [cursor=pointer]
+  - main [ref=f1e11]:
+    - generic [ref=f1e12]:
+      - figure [ref=f1e13]:
+        - 'img "Rond mosschilderij met warme achtergrondverlichting: een gloed rond donkergroen bolmos, wit en lichtgroen rendiermos en natuurlijke houten elementen" [ref=f1e14]'
+        - img [ref=f1e15]:
+          - generic [ref=f1e16]: handgemaakt in eersel · gepreserveerd mos · onderhoudsvrij · uniek ·
+      - generic [ref=f1e17]:
+        - paragraph [ref=f1e18]: Atelier · Eersel · Nº 01 — 10
+        - heading "Natuur die je niet hoeft te verzorgen" [level=1] [ref=f1e19]:
+          - generic [ref=f1e20]: Natuur
+          - generic [ref=f1e23]:
+            - text: die je
+            - emphasis [ref=f1e24]: niet
+          - generic [ref=f1e25]: hoeft te
+          - emphasis [ref=f1e29]: verzorgen
+        - generic [ref=f1e30]:
+          - paragraph [ref=f1e31]: Schilderijen en composities van gepreserveerd mos. Geen water, geen zonlicht nodig. Blijft jarenlang mooi. Elk stuk is uniek en wordt op maat gemaakt.
+          - generic [ref=f1e32]:
+            - link "Bekijk de collectie" [ref=f1e33] [cursor=pointer]:
+              - /url: "#collectie"
+            - link "Stel jouw stuk samen" [ref=f1e34] [cursor=pointer]:
+              - /url: "#op-maat"
+        - paragraph [ref=f1e35]: Nº 02 / 10 · Bolmos, rendiermos, hout · Ø 70 cm · Eersel
+    - generic [ref=f1e37]:
+      - generic [ref=f1e38]: Rendiermos
+      - generic [ref=f1e39]: ·
+      - generic [ref=f1e40]: Bolmos
+      - generic [ref=f1e41]: ·
+      - generic [ref=f1e42]: Acaciahout
+      - generic [ref=f1e43]: ·
+      - generic [ref=f1e44]: Varens
+      - generic [ref=f1e45]: ·
+      - generic [ref=f1e46]: Gepreserveerd
+      - generic [ref=f1e47]: ·
+      - generic [ref=f1e48]: Onderhoudsvrij
+      - generic [ref=f1e49]: ·
+      - generic [ref=f1e50]: Led-verlichting
+      - generic [ref=f1e51]: ·
+      - generic [ref=f1e52]: Matzwarte rand
+      - generic [ref=f1e53]: ·
+      - generic [ref=f1e54]: Handgemaakt in Eersel
+      - generic [ref=f1e55]: ·
+      - generic [ref=f1e56]: Rendiermos
+      - generic [ref=f1e57]: ·
+      - generic [ref=f1e58]: Bolmos
+      - generic [ref=f1e59]: ·
+      - generic [ref=f1e60]: Acaciahout
+      - generic [ref=f1e61]: ·
+      - generic [ref=f1e62]: Varens
+      - generic [ref=f1e63]: ·
+      - generic [ref=f1e64]: Gepreserveerd
+      - generic [ref=f1e65]: ·
+      - generic [ref=f1e66]: Onderhoudsvrij
+      - generic [ref=f1e67]: ·
+      - generic [ref=f1e68]: Led-verlichting
+      - generic [ref=f1e69]: ·
+      - generic [ref=f1e70]: Matzwarte rand
+      - generic [ref=f1e71]: ·
+      - generic [ref=f1e72]: Handgemaakt in Eersel
+      - generic [ref=f1e73]: ·
+    - region "Kenmerken" [ref=f1e74]:
+      - list [ref=f1e75]:
+        - listitem [ref=f1e76]:
+          - generic [ref=f1e77]: "01"
+          - heading "Onderhoudsvrij" [level=2] [ref=f1e78]
+          - paragraph [ref=f1e79]: Geen water, geen zonlicht nodig. Ophangen en klaar.
+        - listitem [ref=f1e80]:
+          - generic [ref=f1e81]: "02"
+          - heading "Gepreserveerd mos" [level=2] [ref=f1e82]
+          - paragraph [ref=f1e83]: Het mos is behandeld en behoudt jarenlang zijn kleur.
+        - listitem [ref=f1e84]:
+          - generic [ref=f1e85]: "03"
+          - heading "Uniek & handgemaakt" [level=2] [ref=f1e86]
+          - paragraph [ref=f1e87]: Elk stuk wordt met de hand gemaakt. Er is er maar één van.
+        - listitem [ref=f1e88]:
+          - generic [ref=f1e89]: "04"
+          - heading "Op maat" [level=2] [ref=f1e90]
+          - paragraph [ref=f1e91]: "Vorm, kleur en formaat naar jouw wens. Ook zakelijk: een logo in mos."
+    - generic [ref=f1e92]:
+      - generic [ref=f1e93]:
+        - paragraph [ref=f1e94]: De verzameling
+        - heading [level=2] [ref=f1e95]:
+          - text: Collectie
+          - emphasis [ref=f1e96]: van tien werken
+        - paragraph [ref=f1e97]: Elk stuk uit het atelier kan opnieuw gemaakt worden.
+      - group "Filter de collectie" [ref=f1e98]:
+        - button "Alles" [pressed] [ref=f1e99] [cursor=pointer]
+        - button "Cirkel" [ref=f1e100] [cursor=pointer]
+        - button "Ovaal" [ref=f1e101] [cursor=pointer]
+        - button "Mandala" [ref=f1e102] [cursor=pointer]
+        - button "3D & sculptuur" [ref=f1e103] [cursor=pointer]
+        - button "Met verlichting" [ref=f1e104] [cursor=pointer]
+        - button "Zakelijk (logo)" [ref=f1e105] [cursor=pointer]
+      - list [ref=f1e106]:
+        - listitem [ref=f1e107]:
+          - button "Ronde moscompositie van lichtgroen en donkergroen rendiermos, bolmos en acaciahout aan een lichte wand Moscirkel Rendiermos, bolmos, acaciahout · Ø 80 cm op aanvraag" [ref=f1e108] [cursor=pointer]:
+            - generic: "01"
+            - img "Ronde moscompositie van lichtgroen en donkergroen rendiermos, bolmos en acaciahout aan een lichte wand" [ref=f1e110]
+            - generic [ref=f1e111]:
+              - generic [ref=f1e112]: Moscirkel
+              - generic [ref=f1e113]: Rendiermos, bolmos, acaciahout · Ø 80 cm
+              - generic [ref=f1e114]:
+                - generic [ref=f1e115]: op aanvraag
+                - generic [ref=f1e116]:
+                  - text: Bekijk
+                  - generic [ref=f1e117]: →
+        - listitem [ref=f1e118]:
+          - 'button "Rond mosschilderij met geïntegreerde sfeerverlichting: warme gloed rond bolmos, rendiermos en houten elementen Mosschilderij met verlichting Bolmos, rendiermos, hout · Ø 70 cm op aanvraag" [ref=f1e119] [cursor=pointer]':
+            - generic: "02"
+            - 'img "Rond mosschilderij met geïntegreerde sfeerverlichting: warme gloed rond bolmos, rendiermos en houten elementen" [ref=f1e121]'
+            - generic [ref=f1e122]:
+              - generic [ref=f1e123]: Mosschilderij met verlichting
+              - generic [ref=f1e124]: Bolmos, rendiermos, hout · Ø 70 cm
+              - generic [ref=f1e125]:
+                - generic [ref=f1e126]: op aanvraag
+                - generic [ref=f1e127]:
+                  - text: Bekijk
+                  - generic [ref=f1e128]: →
+        - listitem [ref=f1e129]:
+          - button "Ovaal mosschilderij van behandeld rendiermos in verschillende groentinten Ovaal mosschilderij 90×70 Behandeld rendiermos · 90 × 70 cm op aanvraag" [ref=f1e130] [cursor=pointer]:
+            - generic: "03"
+            - img "Ovaal mosschilderij van behandeld rendiermos in verschillende groentinten" [ref=f1e132]
+            - generic [ref=f1e133]:
+              - generic [ref=f1e134]: Ovaal mosschilderij 90×70
+              - generic [ref=f1e135]: Behandeld rendiermos · 90 × 70 cm
+              - generic [ref=f1e136]:
+                - generic [ref=f1e137]: op aanvraag
+                - generic [ref=f1e138]:
+                  - text: Bekijk
+                  - generic [ref=f1e139]: →
+        - listitem [ref=f1e140]:
+          - button "Ovaal mosschilderij met stukken ingelegd acaciahout tussen rendiermos en bolmos, matzwarte rand Ovaal met acaciahout Rendiermos, bolmos, acaciahout · op maat op aanvraag" [ref=f1e141] [cursor=pointer]:
+            - generic: "04"
+            - img "Ovaal mosschilderij met stukken ingelegd acaciahout tussen rendiermos en bolmos, matzwarte rand" [ref=f1e143]
+            - generic [ref=f1e144]:
+              - generic [ref=f1e145]: Ovaal met acaciahout
+              - generic [ref=f1e146]: Rendiermos, bolmos, acaciahout · op maat
+              - generic [ref=f1e147]:
+                - generic [ref=f1e148]: op aanvraag
+                - generic [ref=f1e149]:
+                  - text: Bekijk
+                  - generic [ref=f1e150]: →
+        - listitem [ref=f1e151]:
+          - button "Mosschilderij in vrije organische vorm met verschillende mossoorten en natuurlijke elementen Organische vorm Meerdere mossoorten · tot 120 × 90 cm op aanvraag" [ref=f1e152] [cursor=pointer]:
+            - generic: "05"
+            - img "Mosschilderij in vrije organische vorm met verschillende mossoorten en natuurlijke elementen" [ref=f1e154]
+            - generic [ref=f1e155]:
+              - generic [ref=f1e156]: Organische vorm
+              - generic [ref=f1e157]: Meerdere mossoorten · tot 120 × 90 cm
+              - generic [ref=f1e158]:
+                - generic [ref=f1e159]: op aanvraag
+                - generic [ref=f1e160]:
+                  - text: Bekijk
+                  - generic [ref=f1e161]: →
+        - listitem [ref=f1e162]:
+          - button "Rond mosschilderij waarin een logo is verwerkt, gemaakt van rendiermos, bolmos en stukken hout Mosschilderij met logo Rendiermos, bolmos, hout · Ø 80 cm € 200" [ref=f1e163] [cursor=pointer]:
+            - generic: "06"
+            - img "Rond mosschilderij waarin een logo is verwerkt, gemaakt van rendiermos, bolmos en stukken hout" [ref=f1e165]
+            - generic [ref=f1e166]:
+              - generic [ref=f1e167]: Mosschilderij met logo
+              - generic [ref=f1e168]: Rendiermos, bolmos, hout · Ø 80 cm
+              - generic [ref=f1e169]:
+                - generic [ref=f1e170]: € 200
+                - generic [ref=f1e171]:
+                  - text: Bekijk
+                  - generic [ref=f1e172]: →
+        - listitem [ref=f1e173]:
+          - 'button "Mos-mandala: stervormig patroon van meerkleurig gepreserveerd rendiermos in een matzwarte rand Mos Mandala Meerkleurig rendiermos · Ø 57,5 cm op aanvraag" [ref=f1e174] [cursor=pointer]':
+            - generic: "07"
+            - 'img "Mos-mandala: stervormig patroon van meerkleurig gepreserveerd rendiermos in een matzwarte rand" [ref=f1e176]'
+            - generic [ref=f1e177]:
+              - generic [ref=f1e178]: Mos Mandala
+              - generic [ref=f1e179]: Meerkleurig rendiermos · Ø 57,5 cm
+              - generic [ref=f1e180]:
+                - generic [ref=f1e181]: op aanvraag
+                - generic [ref=f1e182]:
+                  - text: Bekijk
+                  - generic [ref=f1e183]: →
+        - listitem [ref=f1e184]:
+          - button "Rond mosschilderij met subtiele botanische illustraties verwerkt tussen verschillende soorten mos Botanische illustraties Meerdere mossoorten, illustraties · rond op aanvraag" [ref=f1e185] [cursor=pointer]:
+            - generic: "08"
+            - img "Rond mosschilderij met subtiele botanische illustraties verwerkt tussen verschillende soorten mos" [ref=f1e187]
+            - generic [ref=f1e188]:
+              - generic [ref=f1e189]: Botanische illustraties
+              - generic [ref=f1e190]: Meerdere mossoorten, illustraties · rond
+              - generic [ref=f1e191]:
+                - generic [ref=f1e192]: op aanvraag
+                - generic [ref=f1e193]:
+                  - text: Bekijk
+                  - generic [ref=f1e194]: →
+        - listitem [ref=f1e195]:
+          - button "Decoratieve houten schaal gevuld met gepreserveerd mos in groentinten en varens 3D moslandschap Mos in groentinten, varens, houten schaal op aanvraag" [ref=f1e196] [cursor=pointer]:
+            - generic: "09"
+            - img "Decoratieve houten schaal gevuld met gepreserveerd mos in groentinten en varens" [ref=f1e198]
+            - generic [ref=f1e199]:
+              - generic [ref=f1e200]: 3D moslandschap
+              - generic [ref=f1e201]: Mos in groentinten, varens, houten schaal
+              - generic [ref=f1e202]:
+                - generic [ref=f1e203]: op aanvraag
+                - generic [ref=f1e204]:
+                  - text: Bekijk
+                  - generic [ref=f1e205]: →
+        - listitem [ref=f1e206]:
+          - button "Moslandschap van bolmos en rendiermos in een zware houten sculptuur op matzwarte standaard 3D botanische sculptuur Bolmos, rendiermos, houten sculptuur op aanvraag" [ref=f1e207] [cursor=pointer]:
+            - generic: "10"
+            - img "Moslandschap van bolmos en rendiermos in een zware houten sculptuur op matzwarte standaard" [ref=f1e209]
+            - generic [ref=f1e210]:
+              - generic [ref=f1e211]: 3D botanische sculptuur
+              - generic [ref=f1e212]: Bolmos, rendiermos, houten sculptuur
+              - generic [ref=f1e213]:
+                - generic [ref=f1e214]: op aanvraag
+                - generic [ref=f1e215]:
+                  - text: Bekijk
+                  - generic [ref=f1e216]: →
+    - paragraph [ref=f1e218]: Gepreserveerd mos · onderhoudsvrij · uniek · op maat · gepreserveerd mos · onderhoudsvrij · uniek
+    - generic [ref=f1e219]:
+      - generic [ref=f1e220]:
+        - paragraph [ref=f1e221]: Configurator
+        - heading [level=2] [ref=f1e222]:
+          - text: Stel jouw stuk samen
+          - emphasis [ref=f1e223]: — zie het meteen
+        - paragraph [ref=f1e224]: Kies een startpunt of begin blanco. Je ziet live een schets, het etiket en een prijsindicatie. Aan het eind stuur je je samenstelling op, de definitieve prijs bevestigen we samen.
+      - generic [ref=f1e225]:
+        - group "Startpunten" [ref=f1e226]:
+          - paragraph [ref=f1e227]: Startpunt — kies een bestaand werk als basis
+          - generic [ref=f1e228]:
+            - button "Moscirkel Ø 80" [ref=f1e229] [cursor=pointer]
+            - button "Sfeerverlichting" [ref=f1e230] [cursor=pointer]
+            - button "Ovaal 90×70" [ref=f1e231] [cursor=pointer]
+            - button "Mandala" [ref=f1e232] [cursor=pointer]
+            - 'button "Zakelijk: logo in mos" [ref=f1e233] [cursor=pointer]'
+            - button "3D moslandschap" [ref=f1e234] [cursor=pointer]
+        - generic [ref=f1e235]:
+          - generic [ref=f1e236]:
+            - group "1 · Vorm" [ref=f1e237]:
+              - generic [ref=f1e239]:
+                - generic [ref=f1e240]:
+                  - radio "Cirkel" [checked]
+                  - generic [ref=f1e241] [cursor=pointer]: Cirkel
+                - generic [ref=f1e245]:
+                  - radio "Ovaal"
+                  - generic [ref=f1e246] [cursor=pointer]: Ovaal
+                - generic [ref=f1e250]:
+                  - radio "Organisch"
+                  - generic [ref=f1e251] [cursor=pointer]: Organisch
+                - generic [ref=f1e255]:
+                  - radio "Mandala"
+                  - generic [ref=f1e256] [cursor=pointer]: Mandala
+                - generic [ref=f1e262]:
+                  - radio "3D-schaal"
+                  - generic [ref=f1e263] [cursor=pointer]: 3D-schaal
+                - generic [ref=f1e269]:
+                  - radio "Sculptuur"
+                  - generic [ref=f1e270] [cursor=pointer]: Sculptuur
+            - group "2 · Formaat" [ref=f1e275]:
+              - generic [ref=f1e277]:
+                - generic [ref=f1e278]:
+                  - radio "Ø 40 cm"
+                  - generic [ref=f1e279] [cursor=pointer]: Ø 40 cm
+                - generic [ref=f1e280]:
+                  - radio "Ø 57,5 cm"
+                  - generic [ref=f1e281] [cursor=pointer]: Ø 57,5 cm
+                - generic [ref=f1e282]:
+                  - radio "Ø 70 cm"
+                  - generic [ref=f1e283] [cursor=pointer]: Ø 70 cm
+                - generic [ref=f1e284]:
+                  - radio "Ø 80 cm" [checked]
+                  - generic [ref=f1e285] [cursor=pointer]: Ø 80 cm
+            - group "3 · Mossoort" [ref=f1e286]:
+              - generic [ref=f1e288]:
+                - generic [ref=f1e289]:
+                  - radio "Rendiermos"
+                  - generic [ref=f1e290] [cursor=pointer]: Rendiermos
+                - generic [ref=f1e291]:
+                  - radio "Bolmos"
+                  - generic [ref=f1e292] [cursor=pointer]: Bolmos
+                - generic [ref=f1e293]:
+                  - radio "Rendiermos + bolmos" [checked]
+                  - generic [ref=f1e294] [cursor=pointer]: Rendiermos + bolmos
+                - generic [ref=f1e295]:
+                  - radio "Met varens & botanisch"
+                  - generic [ref=f1e296] [cursor=pointer]: Met varens & botanisch
+            - group "4 · Kleur" [ref=f1e297]:
+              - generic [ref=f1e299]:
+                - generic [ref=f1e300]:
+                  - radio "Natuurgroen"
+                  - generic [ref=f1e301] [cursor=pointer]: Natuurgroen
+                - generic [ref=f1e306]:
+                  - radio "Meerdere groentinten" [checked]
+                  - generic [ref=f1e307] [cursor=pointer]: Meerdere groentinten
+                - generic [ref=f1e312]:
+                  - radio "Meerkleurig"
+                  - generic [ref=f1e313] [cursor=pointer]: Meerkleurig
+                - generic [ref=f1e318]:
+                  - radio "Groen + neutraal"
+                  - generic [ref=f1e319] [cursor=pointer]: Groen + neutraal
+            - group "5 · Rand & afwerking" [ref=f1e324]:
+              - generic [ref=f1e326]:
+                - generic [ref=f1e327]:
+                  - radio "Matzwarte rand" [checked]
+                  - generic [ref=f1e328] [cursor=pointer]: Matzwarte rand
+                - generic [ref=f1e330]:
+                  - radio "Ingelegd acaciahout +€25"
+                  - generic [ref=f1e331] [cursor=pointer]:
+                    - text: Ingelegd acaciahout
+                    - emphasis [ref=f1e333]: +€25
+                - generic [ref=f1e334]:
+                  - radio "Geen rand"
+                  - generic [ref=f1e335] [cursor=pointer]: Geen rand
+            - group "6 · Extra's" [ref=f1e336]:
+              - generic [ref=f1e338]:
+                - generic [ref=f1e339]:
+                  - checkbox "Achtergrondverlichting (met afstandsbediening) +€40"
+                  - generic [ref=f1e340] [cursor=pointer]:
+                    - text: Achtergrondverlichting (met afstandsbediening)
+                    - emphasis [ref=f1e341]: +€40
+                - generic [ref=f1e342]:
+                  - checkbox "Logo of symbool verwerkt +€35"
+                  - generic [ref=f1e343] [cursor=pointer]:
+                    - text: Logo of symbool verwerkt
+                    - emphasis [ref=f1e344]: +€35
+          - complementary [ref=f1e345]:
+            - generic [ref=f1e346]:
+              - text: +
+              - img "Schets van jouw samengestelde mosschilderij" [ref=f1e347]
+              - paragraph [ref=f1e433]: Nº — · Rendiermos + bolmos · Cirkel Ø 80 cm · Matzwarte rand · Eersel
+              - paragraph [ref=f1e434]: vanaf € 190 (indicatie)
+              - paragraph [ref=f1e435]: Indicatie — de maker bevestigt de definitieve prijs.
+              - text: +
+            - button "Vraag jouw compositie aan" [ref=f1e436] [cursor=pointer]
+    - generic [ref=f1e437]:
+      - generic [ref=f1e438]:
+        - paragraph [ref=f1e439]: Van wens tot werk
+        - heading [level=2] [ref=f1e440]:
+          - text: Werkwijze
+          - emphasis [ref=f1e441]: in vier stappen
+      - list [ref=f1e442]:
+        - listitem [ref=f1e443]:
+          - generic [ref=f1e444]: "01"
+          - generic [ref=f1e445]:
+            - heading "Jouw idee of wens" [level=3] [ref=f1e446]
+            - paragraph [ref=f1e447]: Een vorm, een kleur, een formaat, of een logo voor op kantoor.
+        - listitem [ref=f1e448]:
+          - generic [ref=f1e449]: "02"
+          - generic [ref=f1e450]:
+            - heading "Ontwerp en materiaal" [level=3] [ref=f1e451]
+            - paragraph [ref=f1e452]: Samen bepalen we het mos, het hout, de rand en of er verlichting in komt.
+        - listitem [ref=f1e453]:
+          - generic [ref=f1e454]: "03"
+          - generic [ref=f1e455]:
+            - heading "Met de hand gemaakt in Eersel" [level=3] [ref=f1e456]
+            - paragraph [ref=f1e457]: Elk stuk wordt stuk voor stuk opgebouwd. Er is er maar één van.
+        - listitem [ref=f1e458]:
+          - generic [ref=f1e459]: "04"
+          - generic [ref=f1e460]:
+            - heading "Opgehaald of bezorgd" [level=3] [ref=f1e461]
+            - paragraph [ref=f1e462]: Ophalen in Eersel of bezorgen, wat jou het beste uitkomt.
+    - generic [ref=f1e464]:
+      - figure [ref=f1e465]
+      - generic [ref=f1e466]:
+        - paragraph [ref=f1e467]: Het atelier
+        - heading "Over de maker" [level=2] [ref=f1e468]
+        - paragraph [ref=f1e469]:
+          - text: Elk werk komt uit een klein atelier in
+          - emphasis [ref=f1e470]: Eersel
+          - text: . Daar wordt gepreserveerd rendiermos en bolmos met de hand gecombineerd met acaciahout, natuurlijke elementen en soms verlichting.
+    - generic [ref=f1e471]:
+      - generic [ref=f1e472]:
+        - paragraph [ref=f1e473]: Eersel · ophalen of verzenden
+        - heading [level=2] [ref=f1e474]:
+          - text: Contact
+          - emphasis [ref=f1e475]: — vertel je wens
+        - paragraph [ref=f1e476]: Vragen, een wens of een foto van je muur? Stuur een bericht — je krijgt persoonlijk antwoord van de maker.
+      - generic [ref=f1e477]:
+        - generic [ref=f1e478]:
+          - generic [ref=f1e479]:
+            - generic [ref=f1e480]: Naam
+            - textbox "Naam" [ref=f1e481]
+          - generic [ref=f1e482]:
+            - generic [ref=f1e483]: E-mailadres
+            - textbox "E-mailadres" [ref=f1e484]
+          - generic [ref=f1e485]:
+            - generic [ref=f1e486]: Bericht
+            - textbox "Bericht" [ref=f1e487]:
+              - /placeholder: "Vertel wat je zoekt: vorm, formaat, kleuren — of plak hier je samenstelling uit de configurator."
+          - status [ref=f1e488]
+          - button "Verstuur je bericht" [ref=f1e489] [cursor=pointer]
+        - generic [ref=f1e490]:
+          - paragraph [ref=f1e491]: Liever direct?
+          - list
+          - paragraph [ref=f1e492]: Gevestigd in Eersel (Noord-Brabant). Werken kunnen opgehaald of bezorgd/verzonden worden.
+  - contentinfo [ref=f1e493]:
+    - paragraph [ref=f1e494]: Moskunst
+    - generic [ref=f1e495]:
+      - paragraph [ref=f1e497]: Handgemaakt in Eersel · gepreserveerd mos · onderhoudsvrij
+      - navigation "Voetnavigatie" [ref=f1e498]:
+        - list [ref=f1e499]:
+          - listitem [ref=f1e500]:
+            - link "Collectie" [ref=f1e501] [cursor=pointer]:
+              - /url: "#collectie"
+          - listitem [ref=f1e502]:
+            - link "Op maat" [ref=f1e503] [cursor=pointer]:
+              - /url: "#op-maat"
+          - listitem [ref=f1e504]:
+            - link "Werkwijze" [ref=f1e505] [cursor=pointer]:
+              - /url: "#werkwijze"
+          - listitem [ref=f1e506]:
+            - link "Over" [ref=f1e507] [cursor=pointer]:
+              - /url: "#over"
+          - listitem [ref=f1e508]:
+            - link "Contact" [ref=f1e509] [cursor=pointer]:
+              - /url: "#contact"
+      - generic:
+        - list

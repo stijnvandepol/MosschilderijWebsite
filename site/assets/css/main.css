@@ -484,6 +484,10 @@ html:not(.js) .hero__medaillon {
   position: absolute;
   inset: -3%;
   will-change: transform;
+  /* draaipunt expliciet op het midden — Safari legt het anders tegen de
+     SVG-hoek, waardoor de draaiende ring diagonaal wegschuift */
+  transform-box: border-box;
+  transform-origin: center;
 }
 .hero__ring text {
   font-family: var(--font-mono);
